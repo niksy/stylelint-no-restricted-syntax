@@ -1,0 +1,64 @@
+{
+  "name": "stylelint-no-restricted-syntax",
+  "version": "0.0.0",
+  "description": "Stylelint rule to disallow specified syntax.",
+  "main": "index.cjs.js",
+  "module": "index.esm.js",
+  "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
+  "license": "MIT",
+  "files": [
+    "index.cjs.js",
+    "index.esm.js",
+    "CHANGELOG.md",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "sideEffects": false,
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "build": "rollup --config .rollup.js",
+    "prepublishOnly": "npm run build",
+    "release": "np",
+    "test": "eslint '{index,lib/**/*,test/**/*}.js' && mocha --require esm 'test/*.js' --delay",
+    "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md"
+  },
+  "dependencies": {
+    "postcss-query-ast": "^1.0.0",
+    "stylelint": "^9.9.0"
+  },
+  "devDependencies": {
+    "changelog-verify": "^1.1.2",
+    "eslint": "^5.4.0",
+    "eslint-config-niksy": "^6.1.0",
+    "eslint-plugin-extend": "^0.1.1",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-mocha": "^5.1.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^4.0.0",
+    "eslint-plugin-unicorn": "^5.0.0",
+    "esm": "^3.0.51",
+    "mocha": "^4.1.0",
+    "np": "^3.0.4",
+    "rollup": "^1.0.0",
+    "version-changelog": "^3.1.1"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "keywords": [
+    "restricted",
+    "stylelint",
+    "stylelint-plugin",
+    "syntax"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niksy/stylelint-no-restricted-syntax.git"
+  },
+  "bugs": {
+    "url": "https://github.com/niksy/stylelint-no-restricted-syntax/issues"
+  },
+  "homepage": "https://github.com/niksy/stylelint-no-restricted-syntax#readme"
+}
