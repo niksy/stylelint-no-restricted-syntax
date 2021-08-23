@@ -1,6 +1,6 @@
 {
   "name": "stylelint-no-restricted-syntax",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Stylelint rule to disallow specified syntax.",
   "main": "index.cjs.js",
   "module": "index.esm.js",
@@ -14,21 +14,21 @@
     "README.md"
   ],
   "sideEffects": false,
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
     "build": "rollup --config .rollup.js",
     "prepublishOnly": "npm run build",
     "release": "np",
-    "test": "eslint '{index,lib/**/*,test/**/*}.js' && mocha --require esm 'test/*.js' --delay",
+    "test": "jest --silent",
     "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md"
   },
   "dependencies": {
-    "postcss-query-ast": "^1.0.0",
-    "stylelint": "^9.9.0"
+    "postcss-query-ast": "^2.0.0",
+    "stylelint": "^13.13.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "babel-jest": "^27.0.6",
     "changelog-verify": "^1.1.2",
     "eslint": "^5.4.0",
     "eslint-config-niksy": "^6.1.0",
@@ -39,13 +39,14 @@
     "eslint-plugin-promise": "^4.0.0",
     "eslint-plugin-unicorn": "^5.0.0",
     "esm": "^3.0.51",
-    "mocha": "^4.1.0",
+    "jest": "^27.0.6",
+    "jest-preset-stylelint": "^4.1.1",
     "np": "^3.0.4",
     "rollup": "^1.0.0",
     "version-changelog": "^3.1.1"
   },
   "engines": {
-    "node": ">=8"
+    "node": "^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0"
   },
   "keywords": [
     "restricted",
@@ -60,5 +61,11 @@
   "bugs": {
     "url": "https://github.com/niksy/stylelint-no-restricted-syntax/issues"
   },
-  "homepage": "https://github.com/niksy/stylelint-no-restricted-syntax#readme"
+  "homepage": "https://github.com/niksy/stylelint-no-restricted-syntax#readme",
+  "jest": {
+    "preset": "jest-preset-stylelint",
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
+  }
 }

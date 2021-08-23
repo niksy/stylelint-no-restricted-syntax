@@ -1,10 +1,9 @@
-import fn from '../index';
-import runTest from './util';
+import plugin from './index';
 
-const { rule, ruleName, messages } = fn;
-
-runTest(rule, {
-	ruleName: ruleName,
+// eslint-disable-next-line no-undef
+testRule({
+	plugins: ['.'],
+	ruleName: plugin.ruleName,
 	config: [[
 		{
 			selector: 'rule[selector="a"]',
@@ -28,11 +27,12 @@ runTest(rule, {
 	reject: [
 		{
 			code: 'a { font-weight:bold }',
-			message: messages.report('Anchors not allowed.')
+			message: plugin.messages.report('Anchors not allowed.')
 		},
 		{
 			code: 'b { z-index:10 }',
-			message: messages.report('z-index not allowed.')
+			message: plugin.messages.report('z-index not allowed.')
 		}
 	]
 });
+

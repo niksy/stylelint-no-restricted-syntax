@@ -5,3 +5,4 @@ yarn.lock
 npm-debug.log
 index.cjs.js
 index.esm.js
+.idea
