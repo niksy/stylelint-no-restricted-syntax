@@ -2,50 +2,80 @@
   "name": "stylelint-no-restricted-syntax",
   "version": "1.0.0",
   "description": "Stylelint rule to disallow specified syntax.",
-  "main": "index.cjs.js",
-  "module": "index.esm.js",
-  "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
   "license": "MIT",
+  "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "directories": {
+    "test": "test"
+  },
   "files": [
-    "index.cjs.js",
-    "index.esm.js",
+    "cjs/",
+    "esm/",
     "CHANGELOG.md",
     "LICENSE.md",
     "README.md"
   ],
-  "sideEffects": false,
-  "directories": {
-    "test": "test"
-  },
   "scripts": {
-    "build": "rollup --config .rollup.js",
+    "build": "rollup --config rollup.config.js",
+    "lint": "eslint '{index,lib/**/*,test/**/*}.js'",
+    "module-check": "node -e 'require(\"stylelint-no-restricted-syntax\");' && node --input-type=module -e 'import \"stylelint-no-restricted-syntax\";'",
     "prepublishOnly": "npm run build",
-    "release": "np",
-    "test": "eslint '{index,lib/**/*,test/**/*}.js' && mocha --require esm 'test/*.js' --delay",
-    "version": "version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md"
+    "postpublish": "GITHUB_TOKEN=$GITHUB_RELEASE_TOKEN github-release-from-changelog",
+    "prerelease": "npm run lint && npm run build && npm run module-check",
+    "release": "np --no-release-draft",
+    "test": "BABEL_ENV=test nyc mocha --require @babel/register --require esm 'test/**/*.js' && nyc check-coverage",
+    "test:watch": "nodemon --exec npm test",
+    "version": "if [ $(git rev-parse --abbrev-ref HEAD) == 'master' ]; then version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md; else echo; fi"
   },
   "dependencies": {
-    "postcss-query-ast": "^1.0.0",
-    "stylelint": "^9.9.0"
+    "postcss-query-ast": "^2.0.0"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.12.1",
+    "@babel/register": "^7.0.0",
+    "@rollup/plugin-babel": "^5.2.1",
+    "babel-plugin-istanbul": "^6.0.0",
     "changelog-verify": "^1.1.2",
-    "eslint": "^5.4.0",
-    "eslint-config-niksy": "^6.1.0",
-    "eslint-plugin-extend": "^0.1.1",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-mocha": "^5.1.0",
-    "eslint-plugin-node": "^7.0.1",
-    "eslint-plugin-promise": "^4.0.0",
-    "eslint-plugin-unicorn": "^5.0.0",
+    "core-js": "^2.6.5",
+    "eslint": "^7.31.0",
+    "eslint-config-niksy": "^10.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsdoc": "^33.3.0",
+    "eslint-plugin-mocha": "^8.0.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-unicorn": "^31.0.0",
     "esm": "^3.0.51",
-    "mocha": "^4.1.0",
-    "np": "^3.0.4",
-    "rollup": "^1.0.0",
+    "github-release-from-changelog": "^2.1.1",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.2",
+    "mocha": "^8.2.0",
+    "nodemon": "^2.0.6",
+    "np": "^6.5.0",
+    "nyc": "^15.1.0",
+    "prettier": "^2.4.0",
+    "rollup": "^2.32.1",
+    "stylelint": "^14.0.0",
     "version-changelog": "^3.1.1"
   },
+  "peerDependencies": {
+    "stylelint": "^14.0.0"
+  },
   "engines": {
-    "node": ">=8"
+    "node": ">=12"
   },
   "keywords": [
     "restricted",

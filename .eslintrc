@@ -1,7 +1,23 @@
 {
 	"root": true,
 	"extends": [
-		"niksy",
-		"niksy/next"
+		"eslint-config-niksy",
+		"eslint-config-niksy/next",
+		"eslint-config-prettier"
+	],
+	"plugins": ["eslint-plugin-prettier"],
+	"rules": {
+		"prettier/prettier": 1
+	},
+	"overrides": [
+		{
+			"files": ["rollup.config.js"],
+			"parserOptions": {
+				"sourceType": "script"
+			},
+			"rules": {
+				"no-console": 0
+			}
+		}
 	]
 }

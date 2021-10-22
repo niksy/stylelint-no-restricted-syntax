@@ -2,12 +2,18 @@
 
 ## [Unreleased][]
 
+### Changed
+
+-   **Breaking**: Supports Node >= 12
+-   **Breaking**: Supports Stylelint >= 14
+-   Upgrade package
+
 ## [1.0.0][] - 2019-01-03
 
 ### Added
 
-- Initial implementation
+-   Initial implementation
 
-
-[Unreleased]: https://github.com/niksy/stylelint-no-restricted-syntax/compare/v1.0.0...HEAD
+[unreleased]:
+	https://github.com/niksy/stylelint-no-restricted-syntax/compare/v1.0.0...HEAD
 [1.0.0]: https://github.com/niksy/stylelint-no-restricted-syntax/tree/v1.0.0

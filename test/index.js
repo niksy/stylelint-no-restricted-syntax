@@ -1,38 +1,53 @@
-import fn from '../index';
-import runTest from './util';
+import function_ from '../index.js';
+import { runCodeTest } from './util/index.js';
 
-const { rule, ruleName, messages } = fn;
+const { rule, ruleName, messages } = function_;
 
-runTest(rule, {
+runCodeTest({
 	ruleName: ruleName,
-	config: [[
-		{
-			selector: 'rule[selector="a"]',
-			message: 'Anchors not allowed.'
-		},
-		{
-			selector: 'decl[prop="z-index"]',
-			message: 'z-index not allowed.'
-		}
-	]],
-	skipBasicChecks: true,
+	config: [
+		[
+			{
+				selector: 'rule[selector="a"]',
+				message: 'Anchors not allowed.'
+			},
+			{
+				selector: 'decl[prop="z-index"]',
+				message: 'z-index not allowed.'
+			}
+		]
+	],
 
 	accept: [
 		{
-			code: 'b { font-weight:bold; }'
+			input: 'b { font-weight:bold; }',
+			result: []
 		},
 		{
-			code: 'span { background:green; }'
+			input: 'span { background:green; }',
+			result: []
 		}
 	],
 	reject: [
 		{
-			code: 'a { font-weight:bold }',
-			message: messages.report('Anchors not allowed.')
+			input: 'a { font-weight:bold }',
+			result: [
+				{
+					column: 1,
+					line: 1,
+					text: messages.report('Anchors not allowed.')
+				}
+			]
 		},
 		{
-			code: 'b { z-index:10 }',
-			message: messages.report('z-index not allowed.')
+			input: 'b { z-index:10 }',
+			result: [
+				{
+					column: 5,
+					line: 1,
+					text: messages.report('z-index not allowed.')
+				}
+			]
 		}
 	]
 });
