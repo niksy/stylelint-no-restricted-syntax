@@ -14,6 +14,7 @@
   },
   "main": "cjs/index.js",
   "module": "esm/index.js",
+  "types": "esm/index.d.ts",
   "directories": {
     "test": "test"
   },
@@ -27,17 +28,18 @@
   "scripts": {
     "build": "rollup --config rollup.config.js",
     "lint": "eslint '{index,lib/**/*,test/**/*}.js'",
+    "lint:types": "tsc",
     "module-check": "node -e 'require(\"stylelint-no-restricted-syntax\");' && node --input-type=module -e 'import \"stylelint-no-restricted-syntax\";'",
     "prepublishOnly": "npm run build",
     "postpublish": "GITHUB_TOKEN=$GITHUB_RELEASE_TOKEN github-release-from-changelog",
-    "prerelease": "npm run lint && npm run build && npm run module-check",
+    "prerelease": "npm run lint && npm run lint:types && npm run build && npm run module-check",
     "release": "np --no-release-draft",
     "test": "BABEL_ENV=test nyc mocha --require @babel/register --require esm 'test/**/*.js' && nyc check-coverage",
     "test:watch": "nodemon --exec npm test",
     "version": "if [ $(git rev-parse --abbrev-ref HEAD) == 'master' ]; then version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md; else echo; fi"
   },
   "dependencies": {
-    "postcss-query-ast": "^2.0.0"
+    "postcss-query-ast": "^2.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -45,9 +47,12 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/register": "^7.0.0",
     "@rollup/plugin-babel": "^5.2.1",
+    "@types/mocha": "^8.2.3",
+    "@types/node": "^16.3.0",
     "babel-plugin-istanbul": "^6.0.0",
     "changelog-verify": "^1.1.2",
     "core-js": "^2.6.5",
+    "cpy": "^8.1.2",
     "eslint": "^7.31.0",
     "eslint-config-niksy": "^10.0.0",
     "eslint-config-prettier": "^8.3.0",
@@ -59,6 +64,7 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-unicorn": "^31.0.0",
     "esm": "^3.0.51",
+    "execa": "^5.1.1",
     "github-release-from-changelog": "^2.1.1",
     "husky": "^4.3.0",
     "lint-staged": "^10.4.2",
@@ -69,6 +75,7 @@
     "prettier": "^2.4.0",
     "rollup": "^2.32.1",
     "stylelint": "^14.0.0",
+    "typescript": "^4.3.5",
     "version-changelog": "^3.1.1"
   },
   "peerDependencies": {

@@ -35,6 +35,15 @@ Add this config to your `.stylelintrc`:
 }
 ```
 
+## Options
+
+Each restricted syntax rule consists of the following properties:
+
+| Property   | Type     | Description                             |
+| ---------- | -------- | --------------------------------------- |
+| `selector` | `string` | Selector for querying PostCSS AST.      |
+| `message`  | `string` | Error message for queried PostCSS node. |
+
 ## Details
 
 ```css

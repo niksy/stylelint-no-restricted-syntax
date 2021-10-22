@@ -1,3 +1,9 @@
+/**
+ * @typedef {object} SyntaxRule
+ * @property {string} selector Selector for querying PostCSS AST.
+ * @property {string} message  Error message for queried PostCSS node.
+ */
+
 import stylelint from 'stylelint';
 import queryAst from 'postcss-query-ast';
 
@@ -8,7 +14,7 @@ const messages = stylelint.utils.ruleMessages(ruleName, {
 });
 
 /**
- * @param {object[]} value
+ * @param {*} value
  */
 function possibleValueTest(value) {
 	return (
@@ -22,7 +28,7 @@ function possibleValueTest(value) {
 
 const plugin = stylelint.createPlugin(
 	ruleName,
-	(syntaxRules) => async (cssRoot, result) => {
+	(/** @type {SyntaxRule[]}*/ syntaxRules) => async (cssRoot, result) => {
 		const validOptions = stylelint.utils.validateOptions(result, ruleName, {
 			actual: syntaxRules,
 			possible: possibleValueTest
