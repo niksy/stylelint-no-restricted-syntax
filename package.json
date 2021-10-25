@@ -1,6 +1,6 @@
 {
   "name": "stylelint-no-restricted-syntax",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Stylelint rule to disallow specified syntax.",
   "license": "MIT",
   "author": "Ivan Nikolić <niksy5@gmail.com> (http://ivannikolic.com)",
