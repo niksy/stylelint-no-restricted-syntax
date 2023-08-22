@@ -34,6 +34,8 @@ runCodeTest({
 			result: [
 				{
 					column: 1,
+					endColumn: 23,
+					endLine: 1,
 					line: 1,
 					text: messages.report('Anchors not allowed.')
 				}
@@ -44,6 +46,8 @@ runCodeTest({
 			result: [
 				{
 					column: 5,
+					endColumn: 15,
+					endLine: 1,
 					line: 1,
 					text: messages.report('z-index not allowed.')
 				}
