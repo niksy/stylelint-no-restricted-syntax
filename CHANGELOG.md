@@ -2,6 +2,13 @@
 
 ## [Unreleased][]
 
+### Changed
+
+-   Allow Stylelint 15 as peer dependancy
+-   Update import statements to be ESM compatible
+-   Use pure ESM as default
+-   Upgrade package
+
 ## [2.0.0][] - 2021-10-25
 
 ### Changed
