@@ -10,7 +10,7 @@ import queryAst from 'postcss-query-ast';
 const ruleName = 'plugin/no-restricted-syntax';
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
-	report: (message) => message
+	report: (/** @type string */ message) => message
 });
 
 /**
@@ -26,9 +26,11 @@ function possibleValueTest(value) {
 	);
 }
 
-const plugin = stylelint.createPlugin(
-	ruleName,
-	(/** @type {SyntaxRule[]}*/ syntaxRules) => async (cssRoot, result) => {
+/**
+ * @type {stylelint.RuleBase}
+ */
+function ruleFunction(/** @type {SyntaxRule[]}*/ syntaxRules) {
+	return async function (cssRoot, result) {
 		const validOptions = stylelint.utils.validateOptions(result, ruleName, {
 			actual: syntaxRules,
 			possible: possibleValueTest
@@ -58,7 +60,10 @@ const plugin = stylelint.createPlugin(
 					});
 				});
 			});
-	}
-);
+	};
+}
+
+// @ts-ignore
+const plugin = stylelint.createPlugin(ruleName, ruleFunction);
 
 export default { ...plugin, messages };
