@@ -8,7 +8,7 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 12
+          - 16
     steps:
       - name: Clone repository
         uses: actions/checkout@v2

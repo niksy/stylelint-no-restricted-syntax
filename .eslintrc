@@ -1,9 +1,9 @@
 {
 	"root": true,
 	"extends": [
-		"eslint-config-niksy",
-		"eslint-config-niksy/typescript",
-		"eslint-config-niksy/next",
+		"eslint-config-nitpick",
+		"eslint-config-nitpick/typescript",
+		"eslint-config-nitpick/next",
 		"eslint-config-prettier"
 	],
 	"plugins": ["eslint-plugin-prettier"],
