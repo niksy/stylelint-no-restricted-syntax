@@ -40,7 +40,7 @@
     "version": "if [ $(git rev-parse --abbrev-ref HEAD) == 'master' ]; then sed -i '' '/\\[unreleased\\]:/d' CHANGELOG.md && version-changelog CHANGELOG.md && changelog-verify CHANGELOG.md && git add CHANGELOG.md; else echo; fi"
   },
   "dependencies": {
-    "postcss-query-ast": "^2.1.0"
+    "postcss-query-ast": "^2.1.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
