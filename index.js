@@ -1,4 +1,5 @@
 /**
+ * @typedef {object} Declaration
  * @typedef {object} SyntaxRule
  * @property {string} selector Selector for querying PostCSS AST.
  * @property {string} message  Error message for queried PostCSS node.
@@ -10,7 +11,19 @@ import queryAst from 'postcss-query-ast';
 const ruleName = 'plugin/no-restricted-syntax';
 
 const messages = stylelint.utils.ruleMessages(ruleName, {
-	report: (/** @type string */ message) => message
+	/**
+	 * @param {function|string} message
+	 * @param {Declaration} node
+	 * @returns
+	 */
+	report: (message, node) => {
+		if (typeof message === 'function') {
+			return message(node)
+		}
+		if (typeof message === 'string') {
+			return message;
+		}
+	}
 });
 
 /**
@@ -56,7 +69,7 @@ function ruleFunction(/** @type {SyntaxRule[]}*/ syntaxRules) {
 						ruleName: ruleName,
 						result: result,
 						node: node,
-						message: messages.report(message)
+						message: messages.report(message, node)
 					});
 				});
 			});
