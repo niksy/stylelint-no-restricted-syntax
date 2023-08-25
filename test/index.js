@@ -2,7 +2,7 @@ import function_ from '../index.js';
 import { runCodeTest } from './util/index.js';
 
 // @ts-ignore
-const { ruleName, messages } = function_;
+const { ruleName } = function_;
 
 runCodeTest({
 	ruleName: ruleName,
@@ -15,6 +15,11 @@ runCodeTest({
 			{
 				selector: 'decl[prop="z-index"]',
 				message: 'z-index not allowed.'
+			},
+			{
+				selector: 'decl[prop="zoom"]',
+				// @ts-ignore
+				message: (node) => `${node.prop} not allowed.`
 			}
 		]
 	],
@@ -38,7 +43,7 @@ runCodeTest({
 					endColumn: 23,
 					endLine: 1,
 					line: 1,
-					text: messages.report('Anchors not allowed.')
+					text: 'Anchors not allowed. (plugin/no-restricted-syntax)'
 				}
 			]
 		},
@@ -50,7 +55,19 @@ runCodeTest({
 					endColumn: 15,
 					endLine: 1,
 					line: 1,
-					text: messages.report('z-index not allowed.')
+					text: 'z-index not allowed. (plugin/no-restricted-syntax)'
+				}
+			]
+		},
+		{
+			input: 'b { zoom:1.5 }',
+			result: [
+				{
+					column: 5,
+					endColumn: 13,
+					endLine: 1,
+					line: 1,
+					text: 'zoom not allowed. (plugin/no-restricted-syntax)'
 				}
 			]
 		}
