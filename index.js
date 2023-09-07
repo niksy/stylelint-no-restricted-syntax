@@ -1,8 +1,11 @@
 /**
- * @typedef {object} Declaration
+ * @typedef {import('postcss').AnyNode} AnyNode
+ *
  * @typedef {object} SyntaxRule
- * @property {string}          selector Selector for querying PostCSS AST.
- * @property {Function|string} message  Error message for queried PostCSS node.
+ * @property {string}         selector Selector for querying PostCSS AST.
+ * @property {Message|string} message  Error message for queried PostCSS node.
+ *
+ * @typedef {(node: AnyNode) => string} Message
  */
 
 import stylelint from 'stylelint';
@@ -11,8 +14,8 @@ import queryAst from 'postcss-query-ast';
 const ruleName = 'plugin/no-restricted-syntax';
 
 /**
- * @param   {Function|string} message
- * @param   {Declaration}     node
+ * @param   {Message|string} message
+ * @param   {AnyNode}        node
  * @returns {string}
  */
 const generateMessage = (message, node) =>

@@ -1,3 +1,8 @@
+/**
+ * @typedef {import('postcss').Declaration} Declaration
+ * @typedef {import('../index.js').SyntaxRule} SyntaxRule
+ */
+
 import function_ from '../index.js';
 import { runCodeTest } from './util/index.js';
 
@@ -7,7 +12,7 @@ const { ruleName } = function_;
 runCodeTest({
 	ruleName: ruleName,
 	config: [
-		[
+		/** @type Array<SyntaxRule> */ ([
 			{
 				selector: 'rule[selector="a"]',
 				message: 'Anchors not allowed.'
@@ -18,10 +23,10 @@ runCodeTest({
 			},
 			{
 				selector: 'decl[prop="zoom"]',
-				// @ts-ignore
-				message: (node) => `${node.prop} not allowed.`
+				message: (node) =>
+					`${/** @type Declaration */ (node).prop} not allowed.`
 			}
-		]
+		])
 	],
 
 	accept: [
