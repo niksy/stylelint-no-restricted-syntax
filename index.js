@@ -1,7 +1,11 @@
 /**
+ * @typedef {import('postcss').AnyNode} AnyNode
+ *
  * @typedef {object} SyntaxRule
- * @property {string} selector Selector for querying PostCSS AST.
- * @property {string} message  Error message for queried PostCSS node.
+ * @property {string}         selector Selector for querying PostCSS AST.
+ * @property {Message|string} message  Error message for queried PostCSS node.
+ *
+ * @typedef {(node: AnyNode) => string} Message
  */
 
 import stylelint from 'stylelint';
@@ -9,9 +13,13 @@ import queryAst from 'postcss-query-ast';
 
 const ruleName = 'plugin/no-restricted-syntax';
 
-const messages = stylelint.utils.ruleMessages(ruleName, {
-	report: (/** @type string */ message) => message
-});
+/**
+ * @param   {Message|string} message
+ * @param   {AnyNode}        node
+ * @returns {string}
+ */
+const generateMessage = (message, node) =>
+	typeof message === 'function' ? message(node) : message;
 
 /**
  * @param {*} value
@@ -21,7 +29,8 @@ function possibleValueTest(value) {
 		Array.isArray(value) &&
 		value.every(
 			({ selector, message }) =>
-				typeof selector === 'string' && typeof message === 'string'
+				typeof selector === 'string' &&
+				(typeof message === 'string' || typeof message === 'function')
 		)
 	);
 }
@@ -52,11 +61,16 @@ function ruleFunction(/** @type {SyntaxRule[]}*/ syntaxRules) {
 			.filter(({ nodes }) => nodes.length !== 0)
 			.forEach(({ nodes, message }) => {
 				nodes.forEach((node) => {
+					const formattedMessage = stylelint.utils.ruleMessages(
+						ruleName,
+						{ reject: generateMessage(message, node) }
+					);
+
 					stylelint.utils.report({
 						ruleName: ruleName,
 						result: result,
 						node: node,
-						message: messages.report(message)
+						message: formattedMessage.reject
 					});
 				});
 			});
@@ -66,4 +80,4 @@ function ruleFunction(/** @type {SyntaxRule[]}*/ syntaxRules) {
 // @ts-ignore
 const plugin = stylelint.createPlugin(ruleName, ruleFunction);
 
-export default { ...plugin, messages };
+export default { ...plugin };

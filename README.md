@@ -35,14 +35,33 @@ Add this config to your `.stylelintrc`:
 }
 ```
 
+If using a JavaScript config file (e.g., `stylelint.config.cjs`), you may also
+use a function that returns a message:
+
+```js
+module.exports = {
+	'plugins': ['stylelint-no-restricted-syntax'],
+	'rules': {
+		'plugin/no-restricted-syntax': [
+			[
+				{
+					'selector': "decl[prop='z-index']",
+					'message': (node) => `${node.prop} not allowed.`
+				}
+			]
+		]
+	}
+};
+```
+
 ## Options
 
 Each restricted syntax rule consists of the following properties:
 
-| Property   | Type     | Description                             |
-| ---------- | -------- | --------------------------------------- |
-| `selector` | `string` | Selector for querying PostCSS AST.      |
-| `message`  | `string` | Error message for queried PostCSS node. |
+| Property   | Type               | Description                                                                                                  |
+| ---------- | ------------------ | ------------------------------------------------------------------------------------------------------------ |
+| `selector` | `string`           | Selector for querying PostCSS AST.                                                                           |
+| `message`  | `string\|function` | Error message for queried PostCSS node. If using a function, the provided argument is the full PostCSS node. |
 
 ## Details
 
