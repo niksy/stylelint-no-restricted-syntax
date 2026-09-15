@@ -2,6 +2,8 @@
 
 ## [Unreleased][]
 
+## [2.3.0][] - 2026-09-15
+
 ### Changed
 
 -   Allow Stylelint 17 as peer dependancy
@@ -46,7 +48,11 @@
 [2.0.0]: https://github.com/niksy/stylelint-no-restricted-syntax/tree/v2.0.0
 [2.1.0]: https://github.com/niksy/stylelint-no-restricted-syntax/tree/v2.1.0
 [Unreleased]:
-	https://github.com/niksy/stylelint-no-restricted-syntax/compare/v2.2.1...HEAD
+	https://github.com/niksy/stylelint-no-restricted-syntax/compare/v2.3.0...HEAD
+[2.3.0]: https://github.com/niksy/stylelint-no-restricted-syntax/tree/v2.3.0
+
+    https://github.com/niksy/stylelint-no-restricted-syntax/compare/v2.2.1...HEAD
+
 [2.2.1]: https://github.com/niksy/stylelint-no-restricted-syntax/tree/v2.2.1
 
     https://github.com/niksy/stylelint-no-restricted-syntax/compare/v2.2.0...HEAD
