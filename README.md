@@ -83,6 +83,6 @@ MIT © [Ivan Nikolić](http://ivannikolic.com)
 <!-- prettier-ignore-start -->
 
 [ci]: https://github.com/niksy/stylelint-no-restricted-syntax/actions?query=workflow%3ACI
-[ci-img]: https://github.com/niksy/stylelint-no-restricted-syntax/workflows/CI/badge.svg?branch=master
+[ci-img]: https://github.com/niksy/stylelint-no-restricted-syntax/actions/workflows/ci.yml/badge.svg?branch=master
 
 <!-- prettier-ignore-end -->

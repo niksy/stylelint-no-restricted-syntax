@@ -2,6 +2,10 @@
 
 ## [Unreleased][]
 
+### Changed
+
+-   Allow Stylelint 17 as peer dependancy
+
 ## [2.2.1][] - 2024-02-26
 
 ### Changed

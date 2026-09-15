@@ -70,7 +70,7 @@ export const runCodeTest = (options) => {
 						}
 					}
 				});
-				const [{ rule, severity, ...warning }] = warnings;
+				const [{ rule, severity, url, fix, ...warning }] = warnings;
 				assert.deepEqual(
 					warning,
 					result[0],
@@ -129,13 +129,15 @@ export const runFileTest = (options) => {
 					result.length,
 					`Not all warnings have been covered for reject case`
 				);
-				warnings.forEach(({ rule, severity, ...warning }, index) => {
-					assert.deepEqual(
-						warning,
-						result[index],
-						`Warning is not covered: "${warning.text}"`
-					);
-				});
+				warnings.forEach(
+					({ rule, severity, url, fix, ...warning }, index) => {
+						assert.deepEqual(
+							warning,
+							result[index],
+							`Warning is not covered: "${warning.text}"`
+						);
+					}
+				);
 			});
 		}
 	);
